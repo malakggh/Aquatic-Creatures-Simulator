@@ -9,6 +9,7 @@ import java.io.IOException;
 import java.net.URL;
 
 public class AquaFrame extends JFrame implements ActionListener {
+    private JLabel backgroundLabel;
 
     private JButton[] buttons = new JButton[7];
     private String[] buttonNames = {"Add Animal","Sleep","Wake Up","Reset","Food","Info","Exit"};
@@ -52,6 +53,9 @@ public class AquaFrame extends JFrame implements ActionListener {
         mainPanel = new AquaPanel();
         mainPanel.setBorder(BorderFactory.createEmptyBorder(0, 0, 10, 0));
         add(mainPanel);
+
+        backgroundLabel = new JLabel();
+        mainPanel.add(backgroundLabel);
 
 
         buttonsPanel = new JPanel();
@@ -97,20 +101,10 @@ public class AquaFrame extends JFrame implements ActionListener {
                 JOptionPane.PLAIN_MESSAGE,
                 null,
                 null,
-                "https://i.imgur.com/BOBnmUH.jpeg");
+                "C:\\Users\\hala_\\Desktop\\GadReg cardSale picture.png");
         if (url!=null){
-            Image image = null;
-
-            try {
-                image = ImageIO.read(new URL(url));
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-            ImageIcon icon = new ImageIcon("C:\\Users\\hala_\\Desktop\\BOBnmUH.jpeg");
-            JLabel thumb = new JLabel();
-            thumb.setIcon(icon);
-            thumb.setText("DSAHUIDHSAUIDGUGDGEWQUGFIUEWB ydDSAD");
-            mainPanel.add(thumb);
+            backgroundLabel.setIcon(new ImageIcon(url));
+            System.out.println("what is going on");
 
         }
     }
