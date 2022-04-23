@@ -91,6 +91,8 @@ public class AquaFrame extends JFrame implements ActionListener {
             backgroundLabel.setVisible(false);
         }else if(e.getSource()==jMenuItemHelp){
             JOptionPane.showMessageDialog(null, "Home Work 3\nGUI @ Threads", "Message", JOptionPane.INFORMATION_MESSAGE);
+        }else if(e.getSource()== buttons[0]){
+
         }
     }
     private void addBgImage(){
