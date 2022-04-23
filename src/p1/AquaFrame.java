@@ -1,12 +1,9 @@
 package p1;
 
-import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.IOException;
-import java.net.URL;
 
 public class AquaFrame extends JFrame implements ActionListener {
     private JLabel backgroundLabel;
@@ -88,24 +85,26 @@ public class AquaFrame extends JFrame implements ActionListener {
             addBgImage();
         }else if(e.getSource()==jMenuItemBlue){
             mainPanel.setBackground(Color.blue);
+            backgroundLabel.setVisible(false);
         }else if(e.getSource()==jMenuItemNone){
             mainPanel.setBackground(Color.white);
+            backgroundLabel.setVisible(false);
         }else if(e.getSource()==jMenuItemHelp){
             JOptionPane.showMessageDialog(null, "Home Work 3\nGUI @ Threads", "Message", JOptionPane.INFORMATION_MESSAGE);
         }
     }
     private void addBgImage(){
         String url = (String)JOptionPane.showInputDialog(this,
-                "Please enter image link",
-                "Select Image Background",
+                "Please enter image path",
+                "Image Background",
                 JOptionPane.PLAIN_MESSAGE,
                 null,
                 null,
-                "C:\\Users\\hala_\\Desktop\\GadReg cardSale picture.png");
+                "bg1.png");
         if (url!=null){
+            mainPanel.setBackground(Color.white);
             backgroundLabel.setIcon(new ImageIcon(url));
-            System.out.println("what is going on");
-
+            backgroundLabel.setVisible(true);
         }
     }
     public static void main(String[] args) {
