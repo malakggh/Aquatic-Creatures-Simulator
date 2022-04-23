@@ -2,14 +2,12 @@
  * Name: Malak Ghrayeb
  * Id: ***REMOVED***
  */
-package q3;
+package p1;
 
 /**
  * UnusualFish class
  */
-public class UnusualFish extends Fish{
-    private int factor;
-
+public class MultiColorFish extends Fish{
     /**
      * constructor that gets prams and creates a new object
      * @param size
@@ -18,20 +16,34 @@ public class UnusualFish extends Fish{
      * @param horSpeed
      * @param verSpeed
      * @param col
-     * @param factor
      */
-    public UnusualFish(int size,int x_front,int y_front,int horSpeed,int verSpeed,int col,int factor){
+    public MultiColorFish(int size,int x_front,int y_front,int horSpeed,int verSpeed,int col){
         super(size,x_front,y_front,horSpeed,verSpeed,col);
-        this.factor=factor;
     }
+
     /**
      * default constructor
      */
-    public UnusualFish(){
+    public MultiColorFish(){
         super();
-        this.factor=0;
     }
-
+    /**
+     * toString function responsible for printing Fish object
+     * @return String
+     */
+    @Override
+    public String toString() {
+        return super.toString();
+    }
+    /**
+     * check if equals
+     * @param o
+     * @return boolean
+     */
+    @Override
+    public boolean equals(Object o) {
+        return super.equals(o);
+    }
     /**
      * get eat count
      * @return int
@@ -59,12 +71,12 @@ public class UnusualFish extends Fish{
         return super.getVerSpeed();
     }
     /**
-     * returns UnusualFish
+     * returns MultiColorFish
      * @return String
      */
     @Override
     public String getAnimalName() {
-        return "UnusualFish";
+        return "MultiColorFish";
     }
     /**
      * get color of fish according to number between 1-9
@@ -74,21 +86,13 @@ public class UnusualFish extends Fish{
     public String getColor() {
         return super.getColor();
     }
-
-    /**
-     * get factor
-     * @return int
-     */
-    public int getFactor() {
-        return factor;
-    }
     /**
      * get size
      * @return int
      */
     @Override
     public int getSize() {
-        return super.getSize() * factor;
+        return super.getSize();
     }
 
     /**
@@ -112,37 +116,14 @@ public class UnusualFish extends Fish{
     }
 
     /**
-     * sets factor
-     * @param factor
-     * @return boolean
-     */
-    public boolean setFactor(int factor) {
-        this.factor = factor;
-        return true;
-    }
-    /**
-     * toString function responsible for printing Fish object
-     * @return String
+     * increase counter
+     * changes fish color
      */
     @Override
-    public String toString() {
-        return "UnusualFish{" +
-                "verSpeed=" + verSpeed +
-                "} " + super.toString();
+    public void eatInc() {
+        int currentSize = getSize();
+        super.eatInc();
+        if(getSize()!=currentSize)
+            changeColor();
     }
-
-    /**
-     * check if equals
-     * @param o
-     * @return boolean
-     */
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof UnusualFish)) return false;
-        if (!super.equals(o)) return false;
-        UnusualFish that = (UnusualFish) o;
-        return getFactor() == that.getFactor();
-    }
-
 }

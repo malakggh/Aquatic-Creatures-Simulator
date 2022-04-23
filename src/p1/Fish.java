@@ -2,7 +2,10 @@
  * Name: Malak Ghrayeb
  * Id: ***REMOVED***
  */
-package q3;
+package p1;
+
+import java.awt.*;
+import java.util.concurrent.CyclicBarrier;
 
 /**
  * Fish class
@@ -53,6 +56,26 @@ public class Fish extends Swimmable{
         return "Fish";
     }
 
+    @Override
+    public void drawAnimal(Graphics g) {
+
+    }
+
+    @Override
+    public void setSuspend() {
+
+    }
+
+    @Override
+    public void setResume() {
+
+    }
+
+    @Override
+    public void setBarrier(CyclicBarrier b) {
+
+    }
+
     /**
      * returns eatCount
      * @return int
@@ -70,6 +93,7 @@ public class Fish extends Swimmable{
     public int getSize() {
         return size;
     }
+
 
     /**
      * get color of fish according to number between 1-9
@@ -102,7 +126,7 @@ public class Fish extends Swimmable{
      * increase eatCount
      */
     @Override
-    public void earInc() {
+    public void eatInc() {
         if(this.eatCount+1 < this.size)
             this.eatCount = eatCount+1;
         else {

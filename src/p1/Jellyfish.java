@@ -2,7 +2,10 @@
  * Name: Malak Ghrayeb
  * Id: ***REMOVED***
  */
-package q3;
+package p1;
+
+import java.awt.*;
+import java.util.concurrent.CyclicBarrier;
 
 /**
  * Jellyfish class
@@ -115,6 +118,26 @@ public class Jellyfish extends Swimmable{
         return "Jellyfish";
     }
 
+    @Override
+    public void drawAnimal(Graphics g) {
+
+    }
+
+    @Override
+    public void setSuspend() {
+
+    }
+
+    @Override
+    public void setResume() {
+
+    }
+
+    @Override
+    public void setBarrier(CyclicBarrier b) {
+
+    }
+
     /**
      * returns eatCount
      * @return int
@@ -132,11 +155,13 @@ public class Jellyfish extends Swimmable{
     public int getSize() {
         return size;
     }
+
+
     /**
      * increase eatCount
      */
     @Override
-    public void earInc() {
+    public void eatInc() {
         if(this.eatCount+1 < this.size)
             this.eatCount = eatCount+1;
         else {

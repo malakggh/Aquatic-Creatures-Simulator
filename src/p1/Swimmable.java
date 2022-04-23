@@ -2,11 +2,15 @@
  * Name: Malak Ghrayeb
  * Id: ***REMOVED***
  */
-package q3;
+package p1;
+
+import java.awt.*;
+import java.util.concurrent.CyclicBarrier;
+
 /**
  * Swimmable class
  */
-public abstract class Swimmable implements Comparable{
+public abstract class Swimmable extends Thread implements Comparable{
     protected int horSpeed;
     protected int verSpeed;
     /**
@@ -95,9 +99,14 @@ public abstract class Swimmable implements Comparable{
             return 0;
         return -1;
     }
-    public abstract String getAnimalName();
-    public abstract int getEatCount();
-    public abstract int getSize();
-    public abstract String getColor();
-    public abstract void earInc();
+    abstract public String getAnimalName();
+    abstract public void drawAnimal(Graphics g);
+    abstract public void setSuspend();
+    abstract public void setResume();
+    abstract public void setBarrier(CyclicBarrier b);
+    abstract public int getSize();
+    abstract public void eatInc();
+    abstract public int getEatCount();
+    abstract public String getColor();
+
 }
