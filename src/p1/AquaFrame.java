@@ -5,13 +5,18 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
+import java.util.HashSet;
 
 public class AquaFrame extends JFrame implements ActionListener {
+    private HashSet<Swimmable> swimmableSet;
+
     private JLabel backgroundLabel;
 
     private JButton[] buttons = new JButton[7];
     private String[] buttonNames = {"Add Animal","Sleep","Wake Up","Reset","Food","Info","Exit"};
     private JPanel buttonsPanel;
+
+    private AddAnimalDialog addAnimalDialog;
 
     private AquaPanel mainPanel;
     private JMenu jMenuFile,jMenuBackground,jMenuHelp;
@@ -69,6 +74,7 @@ public class AquaFrame extends JFrame implements ActionListener {
         buttonsPanel.setPreferredSize(new Dimension(50,50));
         add(buttonsPanel,BorderLayout.SOUTH);
 
+
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setSize(1200,800);
     }
@@ -93,7 +99,8 @@ public class AquaFrame extends JFrame implements ActionListener {
         }else if(e.getSource()==jMenuItemHelp){
             JOptionPane.showMessageDialog(null, "Home Work 3\nGUI @ Threads", "Message", JOptionPane.INFORMATION_MESSAGE);
         }else if(e.getSource()== buttons[0]){
-
+            addAnimalDialog=new AddAnimalDialog(swimmableSet);
+            addAnimalDialog.setVisible(true);
         }
     }
     private void addBgImage(){
