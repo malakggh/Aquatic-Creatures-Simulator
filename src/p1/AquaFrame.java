@@ -4,6 +4,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
 
 public class AquaFrame extends JFrame implements ActionListener {
     private JLabel backgroundLabel;
@@ -96,16 +97,19 @@ public class AquaFrame extends JFrame implements ActionListener {
         }
     }
     private void addBgImage(){
-        String url = (String)JOptionPane.showInputDialog(this,
-                "Please enter image path",
-                "Image Background",
-                JOptionPane.PLAIN_MESSAGE,
-                null,
-                null,
-                "bg1.png");
-        if (url!=null){
+//        String url = (String)JOptionPane.showInputDialog(this,
+//                "Please enter image path",
+//                "Image Background",
+//                JOptionPane.PLAIN_MESSAGE,
+//                null,
+//                null,
+//                "bg1.png");
+        JFileChooser fileChooser = new JFileChooser();
+        int res = fileChooser.showOpenDialog(null);
+        if (res == JFileChooser.APPROVE_OPTION){
+            File url = new File(fileChooser.getSelectedFile().getAbsolutePath()) ;
             mainPanel.setBackground(Color.white);
-            backgroundLabel.setIcon(new ImageIcon(url));
+            backgroundLabel.setIcon(new ImageIcon(url.toString()));
             backgroundLabel.setVisible(true);
         }
     }
