@@ -6,6 +6,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
 import java.util.HashSet;
+import java.util.Iterator;
 
 public class AquaFrame extends JFrame implements ActionListener {
     private HashSet<Swimmable> swimmableSet;
@@ -23,7 +24,7 @@ public class AquaFrame extends JFrame implements ActionListener {
     private JMenuItem jMenuItemExit,jMenuItemImage,jMenuItemBlue,jMenuItemNone,jMenuItemHelp;
     public AquaFrame(String title){
         super(title);
-
+        swimmableSet=new HashSet<Swimmable>();
         jMenuFile = new JMenu("File");
         jMenuItemExit = new JMenuItem("Exit");
         jMenuFile.add(jMenuItemExit);
@@ -99,8 +100,16 @@ public class AquaFrame extends JFrame implements ActionListener {
         }else if(e.getSource()==jMenuItemHelp){
             JOptionPane.showMessageDialog(null, "Home Work 3\nGUI @ Threads", "Message", JOptionPane.INFORMATION_MESSAGE);
         }else if(e.getSource()== buttons[0]){
-            addAnimalDialog=new AddAnimalDialog(swimmableSet);
-            addAnimalDialog.setVisible(true);
+            if(swimmableSet.size()<=5) {
+                addAnimalDialog = new AddAnimalDialog(swimmableSet);
+                addAnimalDialog.setVisible(true);
+            }
+        }
+        else if(e.getSource()== buttons[1]){
+            Iterator<Swimmable> it=swimmableSet.iterator();
+            while(it.hasNext()){
+                System.out.println(it.next());
+            }
         }
     }
     private void addBgImage(){

@@ -151,12 +151,14 @@ public class Fish extends Swimmable{
         return "Fish{" +
                 "EAT_DISTANCE=" + EAT_DISTANCE +
                 ", size=" + size +
-                ", col=" + col +
+                ", col=" + getColor() +
                 ", eatCount=" + eatCount +
                 ", x_front=" + x_front +
                 ", y_front=" + y_front +
                 ", x_dir=" + x_dir +
                 ", y_dir=" + y_dir +
+                "horSpeed=" + horSpeed +
+                ", verSpeed=" + verSpeed +
                 '}';
     }
     /**
