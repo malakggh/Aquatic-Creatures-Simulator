@@ -8,12 +8,15 @@ import java.util.HashSet;
 
 public class AquaPanel extends JPanel implements ActionListener{
 
+    Timer timer;
     private Image bg;
     private HashSet<Swimmable> swimmableSet;
     public AquaPanel(){
         swimmableSet=new HashSet<Swimmable>();
         setBorder(BorderFactory.createEmptyBorder(0, 0, 10, 0));
         bg=null;
+        timer=new Timer(10,this);
+        timer.start();
         this.setVisible(true);
     }
 
@@ -41,12 +44,9 @@ public class AquaPanel extends JPanel implements ActionListener{
             if(swimmable.getY_front()>=this.getSize().height||swimmable.getY_front()<0){
                 swimmable.flip_Ydir();
             }
-
-            System.out.println(swimmable);
             swimmable.setX_front(swimmable.getX_front()+swimmable.getHorSpeed()*swimmable.get_Xdir());
             swimmable.setY_front(swimmable.getY_front()+swimmable.getVerSpeed()*swimmable.get_Ydir());
             swimmable.drawAnimal(g);
-
         }
     }
 
@@ -57,6 +57,7 @@ public class AquaPanel extends JPanel implements ActionListener{
      */
     @Override
     public void actionPerformed(ActionEvent e) {
+
         repaint();
     }
 }

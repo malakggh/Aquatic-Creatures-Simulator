@@ -94,7 +94,7 @@ public class AquaFrame extends JFrame implements ActionListener {
         }else if(e.getSource()==jMenuItemHelp){
             JOptionPane.showMessageDialog(null, "Home Work 3\nGUI @ Threads", "Message", JOptionPane.INFORMATION_MESSAGE);
         }else if(e.getSource()== buttons[0]){
-            if(swimmableSet.size()<=5) {
+            if(swimmableSet.size()<5) {
                 addAnimalDialog = new AddAnimalDialog(swimmableSet);
                 addAnimalDialog.setVisible(true);
             }
@@ -119,6 +119,7 @@ public class AquaFrame extends JFrame implements ActionListener {
             File url = new File(fileChooser.getSelectedFile().getAbsolutePath()) ;
             mainPanel.setBackground(Color.white);
             mainPanel.setBg(new ImageIcon(url.toString()).getImage());
+            mainPanel.repaint();
         }
     }
     public static void main(String[] args) {
