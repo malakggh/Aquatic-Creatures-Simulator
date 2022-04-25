@@ -113,4 +113,12 @@ public abstract class Swimmable extends Thread implements Comparable{
     abstract public void setY_front(int y_front);
     abstract public int getX_front();
     abstract public int getY_front();
+    abstract  public void flip_Xdir();
+    abstract  public void flip_Ydir();
+
+    abstract public int get_Xdir();
+
+    abstract public int get_Ydir();
+
+
 }

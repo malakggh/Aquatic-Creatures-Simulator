@@ -72,6 +72,26 @@ public class Jellyfish extends Swimmable{
     }
 
     @Override
+    public void flip_Xdir() {
+        x_dir=x_dir*-1;
+    }
+
+    @Override
+    public void flip_Ydir() {
+        y_dir=y_dir*-1;
+    }
+
+    @Override
+    public int get_Xdir() {
+        return x_dir;
+    }
+
+    @Override
+    public int get_Ydir() {
+        return y_dir;
+    }
+
+    @Override
     public String getColor() {
         if (col == 1){
             return "Black";

@@ -88,6 +88,24 @@ public class Fish extends Swimmable{
     public void setBarrier(CyclicBarrier b) {
 
     }
+    public void flip_Xdir() {
+        x_dir=x_dir*-1;
+    }
+
+    @Override
+    public void flip_Ydir() {
+        y_dir=y_dir*-1;
+    }
+
+    @Override
+    public int get_Xdir() {
+        return x_dir;
+    }
+
+    @Override
+    public int get_Ydir() {
+        return y_dir;
+    }
 
     /**
      * returns eatCount
