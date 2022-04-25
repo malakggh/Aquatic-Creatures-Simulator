@@ -11,8 +11,6 @@ import java.util.Iterator;
 public class AquaFrame extends JFrame implements ActionListener {
     private HashSet<Swimmable> swimmableSet;
 
-    private JLabel backgroundLabel;
-
     private JButton[] buttons = new JButton[7];
     private String[] buttonNames = {"Add Animal","Sleep","Wake Up","Reset","Food","Info","Exit"};
     private JPanel buttonsPanel;
@@ -58,10 +56,6 @@ public class AquaFrame extends JFrame implements ActionListener {
         swimmableSet=mainPanel.getSwimmableSet();
         add(mainPanel);
 
-        backgroundLabel = new JLabel();
-        mainPanel.add(backgroundLabel);
-
-
         buttonsPanel = new JPanel();
         buttonsPanel.setBorder(BorderFactory.createEmptyBorder());
         buttonsPanel.setLayout(new GridLayout(1, 7));
@@ -93,10 +87,10 @@ public class AquaFrame extends JFrame implements ActionListener {
             addBgImage();
         }else if(e.getSource()==jMenuItemBlue){
             mainPanel.setBackground(Color.blue);
-            backgroundLabel.setVisible(false);
+            mainPanel.setBg(null);
         }else if(e.getSource()==jMenuItemNone){
             mainPanel.setBackground(Color.white);
-            backgroundLabel.setVisible(false);
+            mainPanel.setBg(null);
         }else if(e.getSource()==jMenuItemHelp){
             JOptionPane.showMessageDialog(null, "Home Work 3\nGUI @ Threads", "Message", JOptionPane.INFORMATION_MESSAGE);
         }else if(e.getSource()== buttons[0]){
@@ -124,8 +118,7 @@ public class AquaFrame extends JFrame implements ActionListener {
         if (res == JFileChooser.APPROVE_OPTION){
             File url = new File(fileChooser.getSelectedFile().getAbsolutePath()) ;
             mainPanel.setBackground(Color.white);
-            backgroundLabel.setIcon(new ImageIcon(url.toString()));
-            backgroundLabel.setVisible(true);
+            mainPanel.setBg(new ImageIcon(url.toString()).getImage());
         }
     }
     public static void main(String[] args) {
