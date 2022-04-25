@@ -109,4 +109,8 @@ public abstract class Swimmable extends Thread implements Comparable{
     abstract public int getEatCount();
     abstract public String getColor();
 
+    abstract public void setX_front(int x_front);
+    abstract public void setY_front(int y_front);
+    abstract public int getX_front();
+    abstract public int getY_front();
 }

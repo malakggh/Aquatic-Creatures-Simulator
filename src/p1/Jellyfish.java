@@ -19,6 +19,7 @@ public class Jellyfish extends Swimmable{
     private int y_front;
     private int x_dir;
     private int y_dir;
+    private Color color;
     /**
      * constructor that gets prams and creates a new object
      * @param size
@@ -37,6 +38,7 @@ public class Jellyfish extends Swimmable{
         this.x_front=x_front;
         this.y_front=y_front;
         this.col=col;
+        setColor();
     }
 
     /**
@@ -45,10 +47,30 @@ public class Jellyfish extends Swimmable{
     public Jellyfish(){
         this(0,0,0,0,0,0);
     }
+
+    public void setX_front(int x_front) {
+        this.x_front = x_front;
+    }
+
     /**
      * get color of fish according to number between 1-9
      * @return String
      */
+
+
+
+    public void setY_front(int y_front) {
+        this.y_front = y_front;
+    }
+
+    public int getX_front() {
+        return x_front;
+    }
+
+    public int getY_front() {
+        return y_front;
+    }
+
     @Override
     public String getColor() {
         if (col == 1){
@@ -120,10 +142,6 @@ public class Jellyfish extends Swimmable{
         return "Jellyfish";
     }
 
-    @Override
-    public void drawAnimal(Graphics g) {
-
-    }
 
     @Override
     public void setSuspend() {
@@ -209,4 +227,44 @@ public class Jellyfish extends Swimmable{
     public int compareTo(Object o) {
         return 0;
     }
+
+    public void setColor(){
+        if (col == 1){
+            color = new Color(Color.black.getRGB());
+        }else if(col == 2){
+            color = new Color(Color.red.getRGB());
+        }else if(col == 3){
+            color = new Color(Color.blue.getRGB());
+        }else if(col == 4){
+            color = new Color(Color.green.getRGB());
+        }else if(col == 5){
+            color = new Color(Color.cyan.getRGB());
+        }else if(col == 6){
+            color = new Color(Color.orange.getRGB());
+        }else if(col == 7){
+            color = new Color(Color.yellow.getRGB());
+        }else if(col == 8){
+            color = new Color(Color.magenta.getRGB());
+        }else if(col == 9){
+            color = new Color(Color.pink.getRGB());
+        }
+    }
+
+    public void drawAnimal(Graphics g)
+    {
+        int numLegs;
+        if(size<40)
+            numLegs = 5;
+        else if(size<80)
+            numLegs = 9;
+        else
+            numLegs = 12;
+
+        g.setColor(color);
+        g.fillArc(x_front - size/2, y_front - size/4, size, size/2, 0, 180);
+
+        for(int i=0; i<numLegs; i++)
+            g.drawLine(x_front - size/2 + size/numLegs + size*i/(numLegs+1), y_front, x_front - size/2 + size/numLegs + size*i/(numLegs+1), y_front+size/3);
+    }
+
 }

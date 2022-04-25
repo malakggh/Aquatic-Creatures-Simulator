@@ -24,7 +24,7 @@ public class AquaFrame extends JFrame implements ActionListener {
     private JMenuItem jMenuItemExit,jMenuItemImage,jMenuItemBlue,jMenuItemNone,jMenuItemHelp;
     public AquaFrame(String title){
         super(title);
-        swimmableSet=new HashSet<Swimmable>();
+
         jMenuFile = new JMenu("File");
         jMenuItemExit = new JMenuItem("Exit");
         jMenuFile.add(jMenuItemExit);
@@ -55,7 +55,7 @@ public class AquaFrame extends JFrame implements ActionListener {
 
 
         mainPanel = new AquaPanel();
-        mainPanel.setBorder(BorderFactory.createEmptyBorder(0, 0, 10, 0));
+        swimmableSet=mainPanel.getSwimmableSet();
         add(mainPanel);
 
         backgroundLabel = new JLabel();
@@ -106,12 +106,11 @@ public class AquaFrame extends JFrame implements ActionListener {
             }
         }
         else if(e.getSource()== buttons[1]){
-            Iterator<Swimmable> it=swimmableSet.iterator();
-            while(it.hasNext()){
-                System.out.println(it.next());
-            }
+
         }
     }
+
+
     private void addBgImage(){
 //        String url = (String)JOptionPane.showInputDialog(this,
 //                "Please enter image path",
