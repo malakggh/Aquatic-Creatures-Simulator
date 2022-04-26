@@ -120,6 +120,11 @@ public abstract class Swimmable extends Thread implements Comparable{
 
     abstract public int get_Ydir();
 
-    abstract public void run();
+    public void wakeUp(){
+        synchronized (this){
+            notify();
+        }
+
+    }
 
 }

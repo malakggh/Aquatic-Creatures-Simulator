@@ -105,9 +105,17 @@ public class AquaFrame extends JFrame implements ActionListener {
             sleep=true;
         }else if(e.getSource()== buttons[2]){
             synchronized (this) {
-                sleep = false;
+                if (sleep == true){
+                    sleep = false;
+
+                    for (Swimmable swimmable:swimmableSet){
+                        swimmable.wakeUp();
+                    }
+                }
 
             }
+        }else if(e.getSource()==buttons[3]){
+            swimmableSet.clear();
         }
 
     }
