@@ -17,12 +17,14 @@ public class AquaFrame extends JFrame implements ActionListener {
 
     private AddAnimalDialog addAnimalDialog;
 
-    private AquaPanel mainPanel;
+    public static AquaPanel mainPanel;
     private JMenu jMenuFile,jMenuBackground,jMenuHelp;
     private JMenuItem jMenuItemExit,jMenuItemImage,jMenuItemBlue,jMenuItemNone,jMenuItemHelp;
+
+    public static boolean sleep;
     public AquaFrame(String title){
         super(title);
-
+        sleep=false;
         jMenuFile = new JMenu("File");
         jMenuItemExit = new JMenuItem("Exit");
         jMenuFile.add(jMenuItemExit);
@@ -100,8 +102,14 @@ public class AquaFrame extends JFrame implements ActionListener {
             }
         }
         else if(e.getSource()== buttons[1]){
-
+            sleep=true;
+        }else if(e.getSource()== buttons[2]){
+            synchronized (this) {
+                sleep = false;
+                //***********************************************************************************
+            }
         }
+
     }
 
 

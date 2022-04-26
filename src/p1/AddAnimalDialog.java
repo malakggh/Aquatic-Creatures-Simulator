@@ -65,13 +65,18 @@ public class AddAnimalDialog extends JDialog implements ActionListener {
 
         if (e.getSource() == addFish) {
             if (comboBoxFishType.getSelectedItem() == "Fish") {
-                swimmableSetRef.add(new Fish(Integer.parseInt(sizeBox.getText()), 0, 0,
+                Fish fish=new Fish(Integer.parseInt(sizeBox.getText()), 0, 0,
                         Integer.parseInt(horBox.getText()), Integer.parseInt(verBox.getText()),
-                        comboBoxFishColor.getSelectedIndex() + 1));
+                        comboBoxFishColor.getSelectedIndex() + 1);
+                swimmableSetRef.add(fish);
+                fish.start();
+
             } else if (comboBoxFishType.getSelectedItem() == "Jellyfish") {
-                swimmableSetRef.add(new Jellyfish(Integer.parseInt(sizeBox.getText()), 0, 0,
+                Jellyfish jelly=new Jellyfish(Integer.parseInt(sizeBox.getText()), 0, 0,
                         Integer.parseInt(horBox.getText()), Integer.parseInt(verBox.getText()),
-                        comboBoxFishColor.getSelectedIndex() + 1));
+                        comboBoxFishColor.getSelectedIndex() + 1);
+                swimmableSetRef.add(jelly);
+                jelly.start();
             }
             this.dispose();
         }

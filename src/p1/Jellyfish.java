@@ -7,6 +7,9 @@ package p1;
 import java.awt.*;
 import java.util.concurrent.CyclicBarrier;
 
+import static p1.AquaFrame.mainPanel;
+import static p1.AquaFrame.sleep;
+
 /**
  * Jellyfish class
  */
@@ -85,7 +88,41 @@ public class Jellyfish extends Swimmable{
     public int get_Xdir() {
         return x_dir;
     }
+    public void run() {
 
+        while (true) {
+            while(sleep){
+            try {
+                wait();
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
+        }
+
+            synchronized (this) {
+                try {
+                    this.sleep(10);
+                } catch (InterruptedException e) {
+                    throw new RuntimeException(e);
+                }
+                if (x_front >= mainPanel.getSize().width) {
+                    flip_Xdir();
+                    x_front = (int) (x_front - size * 1.253452525);
+                }
+                if (x_front < 0) {
+                    flip_Xdir();
+                    x_front = ((int) (x_front + size * 1.253452525));
+                }
+
+                if (y_front >= mainPanel.getSize().height || y_front < 0) {
+                    flip_Ydir();
+                }
+                x_front = x_front + horSpeed * x_dir;
+                y_front = y_front + verSpeed * y_dir;
+                mainPanel.repaint();
+            }
+        }
+    }
     @Override
     public int get_Ydir() {
         return y_dir;
