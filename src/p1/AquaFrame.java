@@ -22,9 +22,11 @@ public class AquaFrame extends JFrame implements ActionListener {
     private JMenuItem jMenuItemExit,jMenuItemImage,jMenuItemBlue,jMenuItemNone,jMenuItemHelp;
 
     public static boolean sleep;
+    public static boolean food;
     public AquaFrame(String title){
         super(title);
         sleep=false;
+        food=false;
         jMenuFile = new JMenu("File");
         jMenuItemExit = new JMenuItem("Exit");
         jMenuFile.add(jMenuItemExit);
@@ -116,6 +118,8 @@ public class AquaFrame extends JFrame implements ActionListener {
             }
         }else if(e.getSource()==buttons[3]){
             swimmableSet.clear();
+        }else if(e.getSource()==buttons[4]){
+            food=true;
         }
 
     }

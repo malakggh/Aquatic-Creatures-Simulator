@@ -7,8 +7,7 @@ package p1;
 import java.awt.*;
 import java.util.concurrent.CyclicBarrier;
 
-import static p1.AquaFrame.mainPanel;
-import static p1.AquaFrame.sleep;
+import static p1.AquaFrame.*;
 
 /**
  * Fish class
@@ -112,7 +111,7 @@ public class Fish extends Swimmable{
 
     @Override
     public void run() {
-            while (true) {
+        while (true) {
                 synchronized (this) {
                 while (sleep) {
                     try {
@@ -122,28 +121,54 @@ public class Fish extends Swimmable{
                     }
                 }
 
-                    try {
-                        this.sleep(10);
-                    } catch (InterruptedException e) {
-                        throw new RuntimeException(e);
-                    }
-                    if (x_front >= mainPanel.getSize().width) {
-                        flip_Xdir();
-                        x_front = (int) (x_front - size * 1.253452525);
-                    }
-                    if (x_front < 0) {
-                        flip_Xdir();
-                        x_front = ((int) (x_front + size * 1.253452525));
-                    }
 
-                    if (y_front >= mainPanel.getSize().height || y_front < 0) {
-                        flip_Ydir();
-                    }
+                if (x_front >= mainPanel.getSize().width) {
+                    flip_Xdir();
+                    x_front = (int) (x_front - size * 1.253452525);
+                }
+                if (x_front < 0) {
+                    flip_Xdir();
+                    x_front = ((int) (x_front + size * 1.253452525));
+                }
+
+                if (y_front >= mainPanel.getSize().height || y_front < 0) {
+                    flip_Ydir();
+                }
+                if (food){
+                    changeDirToFood();
+                }else {
                     x_front = x_front + horSpeed * x_dir;
                     y_front = y_front + verSpeed * y_dir;
-                    mainPanel.repaint();
                 }
+
+                mainPanel.repaint();
+                try {
+                    this.sleep(10);
+                } catch (InterruptedException e) {
+                    throw new RuntimeException(e);
+                }
+            }
         }
+    }
+
+    public void changeDirToFood(){
+        int centerX = mainPanel.getSize().width/2;
+        int centerY = mainPanel.getSize().height/2;
+        int disX = x_front-centerX;
+        int disY = y_front-centerY;
+        double alpha = Math.pow((horSpeed*horSpeed+verSpeed*verSpeed)/(disX*disX+disY*disY),0.5);
+        if (x_front > centerX){
+            x_front += alpha * horSpeed * x_dir;
+        }else {
+            x_front += alpha * horSpeed * x_dir * -1;
+        }
+
+        if (y_front>centerY){
+            y_front += alpha + verSpeed * y_dir;
+        }else {
+            y_front += alpha + verSpeed * y_dir * -1;
+        }
+
     }
 
     /**
