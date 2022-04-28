@@ -157,17 +157,20 @@ public class Fish extends Swimmable{
         int disX = x_front-centerX;
         int disY = y_front-centerY;
         double alpha = Math.pow((horSpeed*horSpeed+verSpeed*verSpeed)/(disX*disX+disY*disY),0.5);
-        if (x_front > centerX){
-            x_front += alpha * horSpeed * x_dir;
-        }else {
-            x_front += alpha * horSpeed * x_dir * -1;
-        }
-
-        if (y_front>centerY){
-            y_front += alpha + verSpeed * y_dir;
-        }else {
-            y_front += alpha + verSpeed * y_dir * -1;
-        }
+        System.out.println(disX + " " + disY);
+        x_front += alpha * disX * x_dir;
+        y_front += alpha * disY * y_dir;
+//        if (x_front > centerX){
+//            x_front += alpha * disX * x_dir;
+//        }else {
+//            x_front += alpha * horSpeed * x_dir * -1;
+//        }
+//
+//        if (y_front>centerY){
+//            y_front += alpha + verSpeed * y_dir;
+//        }else {
+//            y_front += alpha + verSpeed * y_dir * -1;
+//        }
 
     }
 
