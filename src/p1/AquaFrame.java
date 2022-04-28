@@ -7,6 +7,7 @@ import java.awt.event.ActionListener;
 import java.io.File;
 import java.util.HashSet;
 import java.util.Iterator;
+import java.util.concurrent.CyclicBarrier;
 
 public class AquaFrame extends JFrame implements ActionListener {
     private HashSet<Swimmable> swimmableSet;
@@ -23,6 +24,7 @@ public class AquaFrame extends JFrame implements ActionListener {
 
     public static boolean sleep;
     public static boolean food;
+    public static CyclicBarrier barrier;
 
     public AquaFrame(String title){
         super(title);
@@ -126,7 +128,10 @@ public class AquaFrame extends JFrame implements ActionListener {
             mainPanel.repaint();
 
         }else if(e.getSource()==buttons[4]){
-            food=true;
+            if (swimmableSet.size()!=0){
+                food=true;
+
+            }
         }
 
     }

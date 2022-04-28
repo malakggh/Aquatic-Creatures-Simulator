@@ -5,6 +5,9 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.HashSet;
+import java.util.concurrent.CyclicBarrier;
+
+import static p1.AquaFrame.barrier;
 
 public class AddAnimalDialog extends JDialog implements ActionListener {
     String[] fishTypes = {"Fish","Jellyfish"};
@@ -78,6 +81,7 @@ public class AddAnimalDialog extends JDialog implements ActionListener {
                 swimmableSetRef.add(jelly);
                 jelly.start();
             }
+            barrier = new CyclicBarrier(swimmableSetRef.size());
             this.dispose();
         }
     }

@@ -5,6 +5,7 @@
 package p1;
 
 import java.awt.*;
+import java.util.concurrent.BrokenBarrierException;
 import java.util.concurrent.CyclicBarrier;
 
 import static p1.AquaFrame.*;
@@ -135,7 +136,14 @@ public class Fish extends Swimmable{
                     flip_Ydir();
                 }
                 if (food){
+                    try {
+                        barrier.await();
+
+                    } catch (InterruptedException | BrokenBarrierException e) {
+                        e.printStackTrace();
+                    }
                     changeDirToFood();
+
                 }else {
                     x_front = x_front + horSpeed * x_dir;
                     y_front = y_front + verSpeed * y_dir;
@@ -152,6 +160,7 @@ public class Fish extends Swimmable{
     }
 
     public void changeDirToFood(){
+        System.out.println("I changed direction " + currentThread().getName());
         int centerX = mainPanel.getSize().width/2;
         int centerY = mainPanel.getSize().height/2;
         int disX = centerX-x_front;
@@ -162,7 +171,7 @@ public class Fish extends Swimmable{
         }
         else
             alpha = Math.pow (((double)(horSpeed*horSpeed+verSpeed*verSpeed)/ (double)(disX*disX+disY*disY)),0.5);
-        System.out.println("x");
+
         if(disX<0 && x_dir==1){
             x_dir=-1;
         }

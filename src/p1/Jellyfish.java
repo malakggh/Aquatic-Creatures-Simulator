@@ -128,6 +128,7 @@ public class Jellyfish extends Swimmable{
         return y_dir;
     }
 
+
     @Override
     public String getColor() {
         if (col == 1){
