@@ -13,12 +13,15 @@ import java.util.concurrent.CyclicBarrier;
 public abstract class Swimmable extends Thread implements Comparable{
     protected int horSpeed;
     protected int verSpeed;
+
+    protected boolean active;
     /**
      * default constructor
      */
     public Swimmable(){
         this.horSpeed=0;
         this.verSpeed=0;
+        this.active=true;
     }
 
     /**
@@ -30,6 +33,7 @@ public abstract class Swimmable extends Thread implements Comparable{
     public Swimmable(int horSpeed,int verSpeed){
         this.horSpeed=horSpeed;
         this.verSpeed=verSpeed;
+        this.active=true;
     }
 
     /**
@@ -124,7 +128,8 @@ public abstract class Swimmable extends Thread implements Comparable{
         synchronized (this){
             notify();
         }
-
     }
-
+    public void Active(boolean a){
+        active=a;
+    }
 }

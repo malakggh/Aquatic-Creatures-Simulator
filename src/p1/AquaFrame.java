@@ -23,6 +23,7 @@ public class AquaFrame extends JFrame implements ActionListener {
 
     public static boolean sleep;
     public static boolean food;
+
     public AquaFrame(String title){
         super(title);
         sleep=false;
@@ -117,7 +118,13 @@ public class AquaFrame extends JFrame implements ActionListener {
 
             }
         }else if(e.getSource()==buttons[3]){
+            for (Swimmable swimmable:swimmableSet){
+                swimmable.Active(false);
+            }
             swimmableSet.clear();
+            food=false;
+            mainPanel.repaint();
+
         }else if(e.getSource()==buttons[4]){
             food=true;
         }

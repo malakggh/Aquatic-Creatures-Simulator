@@ -111,7 +111,7 @@ public class Fish extends Swimmable{
 
     @Override
     public void run() {
-        while (true) {
+        while (active) {
                 synchronized (this) {
                 while (sleep) {
                     try {
@@ -154,24 +154,23 @@ public class Fish extends Swimmable{
     public void changeDirToFood(){
         int centerX = mainPanel.getSize().width/2;
         int centerY = mainPanel.getSize().height/2;
-        int disX = x_front-centerX;
-        int disY = y_front-centerY;
-        double alpha = Math.pow((horSpeed*horSpeed+verSpeed*verSpeed)/(disX*disX+disY*disY),0.5);
-        System.out.println(disX + " " + disY);
-        x_front += alpha * disX * x_dir;
-        y_front += alpha * disY * y_dir;
-//        if (x_front > centerX){
-//            x_front += alpha * disX * x_dir;
-//        }else {
-//            x_front += alpha * horSpeed * x_dir * -1;
-//        }
-//
-//        if (y_front>centerY){
-//            y_front += alpha + verSpeed * y_dir;
-//        }else {
-//            y_front += alpha + verSpeed * y_dir * -1;
-//        }
-
+        int disX = centerX-x_front;
+        int disY = centerY-y_front;
+        double alpha;
+        if((disX*disX+disY*disY)==0){
+            alpha = Math.pow ((double)(horSpeed*horSpeed+verSpeed*verSpeed),0.5);
+        }
+        else
+            alpha = Math.pow (((double)(horSpeed*horSpeed+verSpeed*verSpeed)/ (double)(disX*disX+disY*disY)),0.5);
+        System.out.println("x");
+        if(disX<0 && x_dir==1){
+            x_dir=-1;
+        }
+        x_front += alpha * disX ;
+//        if(alpha * disY<1)
+//            y_front+=verSpeed;
+//        else
+        y_front += alpha * disY ;
     }
 
     /**

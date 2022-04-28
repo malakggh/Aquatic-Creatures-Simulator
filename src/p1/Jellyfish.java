@@ -90,7 +90,7 @@ public class Jellyfish extends Swimmable{
     }
     public void run() {
 
-        while (true) {
+        while (active) {
             while(sleep){
             try {
                 wait();
