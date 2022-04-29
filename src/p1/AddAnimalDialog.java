@@ -8,6 +8,7 @@ import java.util.HashSet;
 import java.util.concurrent.CyclicBarrier;
 
 import static p1.AquaFrame.barrier;
+import static p1.AquaFrame.mainPanel;
 
 public class AddAnimalDialog extends JDialog implements ActionListener {
     String[] fishTypes = {"Fish","Jellyfish"};
@@ -71,6 +72,7 @@ public class AddAnimalDialog extends JDialog implements ActionListener {
                 Fish fish=new Fish(Integer.parseInt(sizeBox.getText()), 0, 0,
                         Integer.parseInt(horBox.getText()), Integer.parseInt(verBox.getText()),
                         comboBoxFishColor.getSelectedIndex() + 1);
+                fish.addPropertyChangeListener(mainPanel);
                 swimmableSetRef.add(fish);
                 fish.start();
 
@@ -78,6 +80,7 @@ public class AddAnimalDialog extends JDialog implements ActionListener {
                 Jellyfish jelly=new Jellyfish(Integer.parseInt(sizeBox.getText()), 0, 0,
                         Integer.parseInt(horBox.getText()), Integer.parseInt(verBox.getText()),
                         comboBoxFishColor.getSelectedIndex() + 1);
+                jelly.addPropertyChangeListener(mainPanel);
                 swimmableSetRef.add(jelly);
                 jelly.start();
             }

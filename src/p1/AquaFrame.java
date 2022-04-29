@@ -128,6 +128,7 @@ public class AquaFrame extends JFrame implements ActionListener {
             swimmableSet.clear();
             food=false;
             mainPanel.repaint();
+            mainPanel.resetCounter();
 
         }else if(e.getSource()==buttons[4]){
             if (swimmableSet.size()!=0){

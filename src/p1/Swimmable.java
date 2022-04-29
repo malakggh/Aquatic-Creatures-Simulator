@@ -5,6 +5,8 @@
 package p1;
 
 import java.awt.*;
+import java.beans.PropertyChangeListener;
+import java.beans.PropertyChangeSupport;
 import java.util.concurrent.CyclicBarrier;
 
 /**
@@ -15,6 +17,8 @@ public abstract class Swimmable extends Thread implements Comparable{
     protected int verSpeed;
 
     protected boolean active;
+
+    protected PropertyChangeSupport support;
     /**
      * default constructor
      */
@@ -22,6 +26,7 @@ public abstract class Swimmable extends Thread implements Comparable{
         this.horSpeed=0;
         this.verSpeed=0;
         this.active=true;
+        this.support=new PropertyChangeSupport(this);
     }
 
     /**
@@ -34,6 +39,7 @@ public abstract class Swimmable extends Thread implements Comparable{
         this.horSpeed=horSpeed;
         this.verSpeed=verSpeed;
         this.active=true;
+        this.support=new PropertyChangeSupport(this);
     }
 
     /**
@@ -131,5 +137,13 @@ public abstract class Swimmable extends Thread implements Comparable{
     }
     public void Active(boolean a){
         active=a;
+    }
+
+    public void addPropertyChangeListener(PropertyChangeListener pcl){
+        support.addPropertyChangeListener(pcl);
+    }
+
+    public void removePropertyChangeListener(PropertyChangeListener pcl){
+        support.removePropertyChangeListener(pcl);
     }
 }

@@ -5,11 +5,13 @@ import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
 import java.util.HashSet;
 
 import static p1.AquaFrame.food;
 
-public class AquaPanel extends JPanel implements ActionListener{
+public class AquaPanel extends JPanel implements PropertyChangeListener {
 
 
     private Image bg;
@@ -20,8 +22,12 @@ public class AquaPanel extends JPanel implements ActionListener{
 
     private JScrollPane sp;
 
-    private int infoCounter=1;
+    private int eatTotal;
+
+    private int infoCounter;
     public AquaPanel(){
+        infoCounter=1;
+        eatTotal=0;
         swimmableSet=new HashSet<Swimmable>();
         setBorder(BorderFactory.createEmptyBorder(0, 0, 10, 0));
         bg=null;
@@ -78,6 +84,7 @@ public class AquaPanel extends JPanel implements ActionListener{
                         String.valueOf((swimmable.getSize())), String.valueOf(swimmable.horSpeed), String.valueOf(swimmable.verSpeed),
                         String.valueOf(swimmable.getEatCount())});
             }
+            model.insertRow(model.getRowCount(),new Object[]{"Total"," "," "," "," ",String.valueOf(eatTotal)});
             table.setVisible(true);
             sp.setVisible(true);
         }
@@ -89,12 +96,24 @@ public class AquaPanel extends JPanel implements ActionListener{
         }
         this.repaint();
     }
+
+
     /**
-     * Invoked when an action occurs.
+     * This method gets called when a bound property is changed.
      *
-     * @param e the event to be processed
+     * @param evt A PropertyChangeEvent object describing the event source
+     *            and the property that has changed.
      */
     @Override
-    public void actionPerformed(ActionEvent e) {
+    public void propertyChange(PropertyChangeEvent evt) {
+        synchronized (this) {
+            ((Swimmable) evt.getSource()).eatInc();
+            eatTotal++;
+            food = false;
+        }
+
+    }
+    public void resetCounter(){
+        eatTotal=0;
     }
 }

@@ -151,7 +151,7 @@ public class Fish extends Swimmable{
 
                 mainPanel.repaint();
                 try {
-                    this.sleep(10);
+                    sleep(10);
                 } catch (InterruptedException e) {
                     throw new RuntimeException(e);
                 }
@@ -160,12 +160,16 @@ public class Fish extends Swimmable{
     }
 
     public void changeDirToFood(){
-        System.out.println("I changed direction " + currentThread().getName());
+        //System.out.println("I changed direction " + currentThread().getName());
         int centerX = mainPanel.getSize().width/2;
         int centerY = mainPanel.getSize().height/2;
         int disX = centerX-x_front;
         int disY = centerY-y_front;
+        double dis = Math.pow((disX*disX+disY*disY),0.5);
         double alpha;
+        if (dis <= 5 ){
+            support.firePropertyChange(currentThread().getName()+" ate food",dis-1,dis);
+        }
         if((disX*disX+disY*disY)==0){
             alpha = Math.pow ((double)(horSpeed*horSpeed+verSpeed*verSpeed),0.5);
         }
@@ -174,11 +178,10 @@ public class Fish extends Swimmable{
 
         if(disX<0 && x_dir==1){
             x_dir=-1;
+        }else if(disX > 0 && x_dir==-1){
+            x_dir=1;
         }
         x_front += alpha * disX ;
-//        if(alpha * disY<1)
-//            y_front+=verSpeed;
-//        else
         y_front += alpha * disY ;
     }
 
@@ -260,7 +263,6 @@ public class Fish extends Swimmable{
             this.eatCount=0;
             this.size++;
         }
-
     }
 
     /**

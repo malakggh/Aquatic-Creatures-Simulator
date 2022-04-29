@@ -5,10 +5,11 @@
 package p1;
 
 import java.awt.*;
+import java.util.concurrent.BrokenBarrierException;
 import java.util.concurrent.CyclicBarrier;
 
-import static p1.AquaFrame.mainPanel;
-import static p1.AquaFrame.sleep;
+import static p1.AquaFrame.*;
+import static p1.AquaFrame.barrier;
 
 /**
  * Jellyfish class
@@ -88,23 +89,25 @@ public class Jellyfish extends Swimmable{
     public int get_Xdir() {
         return x_dir;
     }
+
+    @Override
+    public int get_Ydir() {
+        return y_dir;
+    }
+
+    @Override
     public void run() {
-
         while (active) {
-            while(sleep){
-            try {
-                wait();
-            } catch (InterruptedException e) {
-                throw new RuntimeException(e);
-            }
-        }
-
             synchronized (this) {
-                try {
-                    this.sleep(10);
-                } catch (InterruptedException e) {
-                    throw new RuntimeException(e);
+                while (sleep) {
+                    try {
+                        wait();
+                    } catch (InterruptedException e) {
+                        throw new RuntimeException(e);
+                    }
                 }
+
+
                 if (x_front >= mainPanel.getSize().width) {
                     flip_Xdir();
                     x_front = (int) (x_front - size * 1.253452525);
@@ -117,18 +120,55 @@ public class Jellyfish extends Swimmable{
                 if (y_front >= mainPanel.getSize().height || y_front < 0) {
                     flip_Ydir();
                 }
-                x_front = x_front + horSpeed * x_dir;
-                y_front = y_front + verSpeed * y_dir;
+                if (food){
+                    try {
+                        barrier.await();
+
+                    } catch (InterruptedException | BrokenBarrierException e) {
+                        e.printStackTrace();
+                    }
+                    changeDirToFood();
+
+                }else {
+                    x_front = x_front + horSpeed * x_dir;
+                    y_front = y_front + verSpeed * y_dir;
+                }
+
                 mainPanel.repaint();
+                try {
+                    sleep(10);
+                } catch (InterruptedException e) {
+                    throw new RuntimeException(e);
+                }
             }
         }
     }
-    @Override
-    public int get_Ydir() {
-        return y_dir;
+
+    public void changeDirToFood(){
+        //System.out.println("I changed direction " + currentThread().getName());
+        int centerX = mainPanel.getSize().width/2;
+        int centerY = mainPanel.getSize().height/2;
+        int disX = centerX-x_front;
+        int disY = centerY-y_front;
+        double dis = Math.pow((disX*disX+disY*disY),0.5);
+        double alpha;
+        if (dis <= 5 ){
+            support.firePropertyChange(currentThread().getName()+" ate food",dis-1,dis);
+        }
+        if((disX*disX+disY*disY)==0){
+            alpha = Math.pow ((double)(horSpeed*horSpeed+verSpeed*verSpeed),0.5);
+        }
+        else
+            alpha = Math.pow (((double)(horSpeed*horSpeed+verSpeed*verSpeed)/ (double)(disX*disX+disY*disY)),0.5);
+
+        if(disX<0 && x_dir==1){
+            x_dir=-1;
+        }else if(disX > 0 && x_dir==-1){
+            x_dir=1;
+        }
+        x_front += alpha * disX ;
+        y_front += alpha * disY ;
     }
-
-
     @Override
     public String getColor() {
         if (col == 1){
