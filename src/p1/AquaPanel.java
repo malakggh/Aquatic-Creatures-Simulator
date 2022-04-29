@@ -38,6 +38,7 @@ public class AquaPanel extends JPanel implements ActionListener{
         model.addColumn("Eat counter");
         sp=new JScrollPane(table);
         add(sp);
+        table.setVisible(false);
         sp.setVisible(false);
 
         add(foodLabel);
@@ -53,6 +54,7 @@ public class AquaPanel extends JPanel implements ActionListener{
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
+        sp.setSize(new Dimension(this.getSize().width,this.getSize().height));
         Graphics2D g2d = (Graphics2D) g;
         if(bg!=null){
             g2d.drawImage(bg,0,0,null);
@@ -68,6 +70,7 @@ public class AquaPanel extends JPanel implements ActionListener{
         }
     }
     public void infoUpdate() {
+
         if (infoCounter % 2 == 1) {
             infoCounter++;
             for (Swimmable swimmable : swimmableSet) {
@@ -75,13 +78,16 @@ public class AquaPanel extends JPanel implements ActionListener{
                         String.valueOf((swimmable.getSize())), String.valueOf(swimmable.horSpeed), String.valueOf(swimmable.verSpeed),
                         String.valueOf(swimmable.getEatCount())});
             }
+            table.setVisible(true);
             sp.setVisible(true);
         }
         else{
+            model.setRowCount(0);
+            table.setVisible(false);
             sp.setVisible(false);
             infoCounter++;
         }
-        repaint();
+        this.repaint();
     }
     /**
      * Invoked when an action occurs.
