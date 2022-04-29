@@ -1,6 +1,8 @@
 package p1;
 
 import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableColumn;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -133,8 +135,13 @@ public class AquaFrame extends JFrame implements ActionListener {
 
             }
         }
+        else if(e.getSource()==buttons[5]){
+            mainPanel.infoUpdate();
+        }
 
     }
+
+
 
 
     private void addBgImage(){
