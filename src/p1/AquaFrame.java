@@ -111,7 +111,7 @@ public class AquaFrame extends JFrame implements ActionListener {
         }else if(e.getSource()== buttons[0]){
             if(swimmableSet.size()<5) {
                 addAnimalDialog = new AddAnimalDialog(swimmableSet);
-                addAnimalDialog.setVisible(true);
+
             }
         }
         else if(e.getSource()== buttons[1]){
