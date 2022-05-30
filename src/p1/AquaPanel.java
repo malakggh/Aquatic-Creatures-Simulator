@@ -22,6 +22,8 @@ public class AquaPanel extends JPanel implements PropertyChangeListener {
 
     private Image bg;
     private HashSet<Swimmable> swimmableSet;
+
+    private HashSet<Immobile> immobileSet;
     private JLabel foodLabel;
     private DefaultTableModel model;
     private JTable table;
@@ -35,6 +37,7 @@ public class AquaPanel extends JPanel implements PropertyChangeListener {
         infoCounter=1;
         eatTotal=0;
         swimmableSet=new HashSet<Swimmable>();
+        immobileSet=new HashSet<Immobile>() ;
         setBorder(BorderFactory.createEmptyBorder(0, 0, 10, 0));
         bg=null;
         foodLabel=new JLabel("<html><span style='font-size:25px'>"+"S"+"</span></html>");
@@ -59,7 +62,7 @@ public class AquaPanel extends JPanel implements PropertyChangeListener {
     }
 
     public HashSet<Swimmable> getSwimmableSet(){return swimmableSet;}
-
+    public HashSet<Immobile> getImmobileSet(){return immobileSet;}
     public void setBg(Image bg){
         this.bg=bg;
     }
@@ -71,14 +74,17 @@ public class AquaPanel extends JPanel implements PropertyChangeListener {
         if(bg!=null){
             g2d.drawImage(bg,0,0,null);
         }
-        if (food){
-            foodLabel.setBounds(this.getSize().width/2,this.getSize().height/2,50,50);
-            foodLabel.setVisible(true);
+        if (food.getState()){
+            food.paintWorm(this,foodLabel);
+
         }else {
-            foodLabel.setVisible(false);
+            food.unpaintWorm(foodLabel);
         }
         for (Swimmable swimmable : swimmableSet) {
             swimmable.drawAnimal(g);
+        }
+        for (Immobile immobile : immobileSet) {
+            immobile.drawCreature(g);
         }
     }
     public void infoUpdate() {
@@ -115,7 +121,7 @@ public class AquaPanel extends JPanel implements PropertyChangeListener {
         synchronized (this) {
             ((Swimmable) evt.getSource()).eatInc();
             eatTotal++;
-            food = false;
+            food.setState(false);
         }
 
     }

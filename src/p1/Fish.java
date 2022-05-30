@@ -137,7 +137,7 @@ public class Fish extends Swimmable{
                 if (y_front >= mainPanel.getSize().height || y_front < 0) {
                     flip_Ydir();
                 }
-                if (food){
+                if (food.getState()){
                     try {
                         barrier.await();
 
@@ -369,4 +369,8 @@ public class Fish extends Swimmable{
     }
 
 
+    @Override
+    public void drawCreature(Graphics g) {
+        drawAnimal(g);
+    }
 }

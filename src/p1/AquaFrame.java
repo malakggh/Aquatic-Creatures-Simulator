@@ -20,24 +20,26 @@ import java.util.concurrent.CyclicBarrier;
 public class AquaFrame extends JFrame implements ActionListener {
     private HashSet<Swimmable> swimmableSet;
 
-    private JButton[] buttons = new JButton[7];
-    private String[] buttonNames = {"Add Animal","Sleep","Wake Up","Reset","Food","Info","Exit"};
+    private HashSet<Immobile> immobileSet;
+    private JButton[] buttons = new JButton[8];
+    private String[] buttonNames = {"Add Animal","Sleep","Wake Up","Reset","Food","Info","Exit","Add Plant"};
     private JPanel buttonsPanel;
 
     private AddAnimalDialog addAnimalDialog;
 
+    private AddPlantDialog addPlantDialog;
     public static AquaPanel mainPanel;
     private JMenu jMenuFile,jMenuBackground,jMenuHelp;
     private JMenuItem jMenuItemExit,jMenuItemImage,jMenuItemBlue,jMenuItemNone,jMenuItemHelp;
 
     public static boolean sleep;
-    public static boolean food;
+    public static Worm food;
     public static CyclicBarrier barrier;
 
     public AquaFrame(String title){
         super(title);
         sleep=false;
-        food=false;
+        food=Worm.getInstance();
         jMenuFile = new JMenu("File");
         jMenuItemExit = new JMenuItem("Exit");
         jMenuFile.add(jMenuItemExit);
@@ -69,12 +71,13 @@ public class AquaFrame extends JFrame implements ActionListener {
 
         mainPanel = new AquaPanel();
         swimmableSet=mainPanel.getSwimmableSet();
+        immobileSet=mainPanel.getImmobileSet();
         add(mainPanel);
 
         buttonsPanel = new JPanel();
         buttonsPanel.setBorder(BorderFactory.createEmptyBorder());
-        buttonsPanel.setLayout(new GridLayout(1, 7));
-        for (int i = 0; i < 7; i++) {
+        buttonsPanel.setLayout(new GridLayout(1, buttonNames.length));
+        for (int i = 0; i < buttonNames.length; i++) {
             buttons[i]=new JButton(buttonNames[i]);
             buttonsPanel.add(buttons[i]);
             buttons[i].setFocusable(false);
@@ -132,18 +135,23 @@ public class AquaFrame extends JFrame implements ActionListener {
                 swimmable.Active(false);
             }
             swimmableSet.clear();
-            food=false;
+            food.setState(false);
             mainPanel.repaint();
             mainPanel.resetCounter();
 
         }else if(e.getSource()==buttons[4]){
             if (swimmableSet.size()!=0){
-                food=true;
+                food.setState(true);
 
             }
         }
         else if(e.getSource()==buttons[5]){
             mainPanel.infoUpdate();
+        }
+        else if(e.getSource()==buttons[7]){
+            if(immobileSet.size()<5) {
+                addPlantDialog = new AddPlantDialog(immobileSet);
+            }
         }
 
     }

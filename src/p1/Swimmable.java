@@ -14,7 +14,7 @@ import java.util.concurrent.CyclicBarrier;
 /**
  * Swimmable class
  */
-public abstract class Swimmable extends Thread implements Comparable{
+public abstract class Swimmable extends Thread implements Comparable,SeaCreature{
     protected int horSpeed;
     protected int verSpeed;
 

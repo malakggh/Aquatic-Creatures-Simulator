@@ -74,22 +74,13 @@ public class AddAnimalDialog extends JDialog implements ActionListener {
     public void actionPerformed(ActionEvent e) {
 
         if (e.getSource() == addFish) {
-            if (comboBoxFishType.getSelectedItem() == "Fish") {
-                Fish fish=new Fish(Integer.parseInt(sizeBox.getText()), 0, 0,
-                        Integer.parseInt(horBox.getText()), Integer.parseInt(verBox.getText()),
-                        comboBoxFishColor.getSelectedIndex() + 1);
-                fish.addPropertyChangeListener(mainPanel);
-                swimmableSetRef.add(fish);
-                fish.start();
+            AnimalFactory animalFactory=new AnimalFactory(Integer.parseInt(sizeBox.getText()), Integer.parseInt(horBox.getText()),Integer.parseInt(verBox.getText()),comboBoxFishColor.getSelectedIndex() + 1);
+            Swimmable Creature= (Swimmable) animalFactory.produceSeaCreature(comboBoxFishType.getSelectedItem().toString());
+            Creature.addPropertyChangeListener(mainPanel);
+            swimmableSetRef.add(Creature);
+            Creature.start();
 
-            } else if (comboBoxFishType.getSelectedItem() == "Jellyfish") {
-                Jellyfish jelly=new Jellyfish(Integer.parseInt(sizeBox.getText()), 0, 0,
-                        Integer.parseInt(horBox.getText()), Integer.parseInt(verBox.getText()),
-                        comboBoxFishColor.getSelectedIndex() + 1);
-                jelly.addPropertyChangeListener(mainPanel);
-                swimmableSetRef.add(jelly);
-                jelly.start();
-            }
+
             barrier = new CyclicBarrier(swimmableSetRef.size());
             this.dispose();
         }

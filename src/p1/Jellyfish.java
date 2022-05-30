@@ -122,7 +122,7 @@ public class Jellyfish extends Swimmable{
                 if (y_front >= mainPanel.getSize().height || y_front < 0) {
                     flip_Ydir();
                 }
-                if (food){
+                if (food.getState()){
                     try {
                         barrier.await();
 
@@ -365,6 +365,9 @@ public class Jellyfish extends Swimmable{
 
         for(int i=0; i<numLegs; i++)
             g.drawLine(x_front - size/2 + size/numLegs + size*i/(numLegs+1), y_front, x_front - size/2 + size/numLegs + size*i/(numLegs+1), y_front+size/3);
+    }
+    public void drawCreature(Graphics g) {
+        drawAnimal(g);
     }
 
 }
