@@ -6,6 +6,7 @@
  */
 package p1;
 
+import javax.naming.directory.SearchControls;
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumn;
@@ -19,28 +20,25 @@ import java.util.concurrent.CyclicBarrier;
 
 public class AquaFrame extends JFrame implements ActionListener {
     private HashSet<Swimmable> swimmableSet;
-
     private HashSet<Immobile> immobileSet;
     private JButton[] buttons;
     private String[] buttonNames = {"Add Animal","Sleep","Wake Up","Reset","Food","Info","Exit","Add Plant","Duplicate Animal"};
     private JPanel buttonsPanel;
-
     private AddAnimalDialog addAnimalDialog;
-
     private AddPlantDialog addPlantDialog;
     public static AquaPanel mainPanel;
-    private JMenu jMenuFile,jMenuBackground,jMenuHelp;
-    private JMenuItem jMenuItemExit,jMenuItemImage,jMenuItemBlue,jMenuItemNone,jMenuItemHelp;
-
+    private JMenu jMenuFile,jMenuBackground,jMenuHelp,jMenuMemento;
+    private JMenuItem jMenuItemExit,jMenuItemImage,jMenuItemBlue,jMenuItemNone,jMenuItemHelp,jMenuItemSave,jMenuItemRestore;
     public static boolean sleep;
     public static Worm food;
     public static CyclicBarrier barrier;
-
+    private Memento memento;
     public AquaFrame(String title){
         super(title);
         buttons = new JButton[buttonNames.length];
         sleep=false;
         food=Worm.getInstance();
+        memento=null;
         jMenuFile = new JMenu("File");
         jMenuItemExit = new JMenuItem("Exit");
         jMenuFile.add(jMenuItemExit);
@@ -57,10 +55,17 @@ public class AquaFrame extends JFrame implements ActionListener {
         jMenuItemHelp = new JMenuItem("Help");
         jMenuHelp.add(jMenuItemHelp);
 
+        jMenuMemento = new JMenu("Memento");
+        jMenuItemSave = new JMenuItem("Save Object State");
+        jMenuItemRestore = new JMenuItem("Restore Object State");
+        jMenuMemento.add(jMenuItemSave);
+        jMenuMemento.add(jMenuItemRestore);
+
         JMenuBar mb = new JMenuBar();
         mb.add(jMenuFile);
         mb.add(jMenuBackground);
         mb.add(jMenuHelp);
+        mb.add(jMenuMemento);
         setJMenuBar(mb);
 
         jMenuItemExit.addActionListener(this);
@@ -68,6 +73,8 @@ public class AquaFrame extends JFrame implements ActionListener {
         jMenuItemBlue.addActionListener(this);
         jMenuItemNone.addActionListener(this);
         jMenuItemHelp.addActionListener(this);
+        jMenuItemSave.addActionListener(this);
+        jMenuItemRestore.addActionListener(this);
 
 
         mainPanel = new AquaPanel();
@@ -122,7 +129,7 @@ public class AquaFrame extends JFrame implements ActionListener {
             sleep=true;
         }else if(e.getSource()== buttons[2]){
             synchronized (this) {
-                if (sleep == true){
+                if (sleep){
                     sleep = false;
 
                     for (Swimmable swimmable:swimmableSet){
@@ -136,6 +143,8 @@ public class AquaFrame extends JFrame implements ActionListener {
                 swimmable.Active(false);
             }
             swimmableSet.clear();
+            immobileSet.clear();
+            memento=null;
             food.setState(false);
             mainPanel.repaint();
             mainPanel.resetCounter();
@@ -155,33 +164,15 @@ public class AquaFrame extends JFrame implements ActionListener {
             }
         }else if(e.getSource()== buttons[8]){
             if(swimmableSet.size()<5 && swimmableSet.size() > 0) {
-                String input="";
-                mainPanel.infoUpdate();
-                do {
-                    do {
-                        input = (String)JOptionPane.showInputDialog(this,
-                                "Please enter animal index from table",
-                                "Duplicate Animal",
-                                JOptionPane.PLAIN_MESSAGE,
-                                null,
-                                null,
-                                "0");
-                        if (input == null){
-                            break;
-                        }
-                    } while (!input.matches("^[0-9]*$") || input.length() != 1) ;
-                    if (input == null){
-                        break;
-                    }
-                }while (!(Integer.parseInt(input) >= 0 && Integer.parseInt(input) < swimmableSet.size()));
-                mainPanel.infoUpdate();
-                assert input != null;
+                int input = pickAnimalOrPlant("Please enter animal index from table", "Duplicate Animal",swimmableSet.size());
+                assert input != -1;
                 Swimmable targetFish=null;
                 int counter=0;
                 for (Swimmable swimmable : swimmableSet){
-                    if (counter==Integer.parseInt(input)){
+                    if (counter==input){
                         targetFish=swimmable;
                     }
+                    counter++;
                 }
                 assert targetFish != null;
                 Swimmable clonedFish= targetFish.clone();
@@ -190,12 +181,73 @@ public class AquaFrame extends JFrame implements ActionListener {
                 swimmableSet.add(clonedFish);
                 clonedFish.start();
             }
+        }else if (e.getSource() == jMenuItemSave){
+            if(swimmableSet.size() > 0 || immobileSet.size() > 0) {
+                int input = pickAnimalOrPlant("Please pick index from table","Pick Index", swimmableSet.size()+immobileSet.size());
+                assert input != -1;
+                SeaCreature seaCreature =null;
+                int counter=0;
+                for (Swimmable swimmable : swimmableSet){
+                    if (counter==input){
+                        seaCreature=swimmable;
+                    }
+                    counter++;
+                }
+                for (Immobile immobile : immobileSet){
+                    if (counter==input){
+                        seaCreature=immobile;
+                    }
+                    counter++;
+                }
+                if (seaCreature!=null) {
+                    memento = new Memento(seaCreature);
+                }
+            }
+        }else if (e.getSource() == jMenuItemRestore){
+            /*jjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjj*/
+            if (memento!=null){
+                SeaCreature seaCreature = memento.getState();
+                if (seaCreature instanceof Swimmable){
+                    Swimmable swimmable = (Swimmable) memento.getCreatureReference();
+                    //swimmable = (Swimmable) memento.getState();
+                    swimmable=null;
+                }else if (seaCreature instanceof Immobile){
+                    Immobile immobile = (Immobile) memento.getCreatureReference();
+                    immobile = (Immobile) memento.getState();
+                    immobile=null;
+                }
+            }
         }
 
     }
 
 
-
+    private int pickAnimalOrPlant(String message,String title,int len){
+        String input="";
+        mainPanel.infoUpdate();
+        do {
+            do {
+                input = (String)JOptionPane.showInputDialog(this,
+                        message,
+                        title,
+                        JOptionPane.PLAIN_MESSAGE,
+                        null,
+                        null,
+                        "0");
+                if (input == null){
+                    break;
+                }
+            } while (!input.matches("^[0-9]*$") || input.length() != 1) ;
+            if (input == null){
+                break;
+            }
+        }while (!(Integer.parseInt(input) >= 0 && Integer.parseInt(input) < len));
+        mainPanel.infoUpdate();
+        if (input == null){
+            return -1;
+        }
+        return Integer.parseInt(input);
+    }
 
     private void addBgImage(){
 //        String url = (String)JOptionPane.showInputDialog(this,

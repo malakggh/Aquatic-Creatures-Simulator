@@ -98,7 +98,13 @@ public class AquaPanel extends JPanel implements PropertyChangeListener {
                         String.valueOf(swimmable.getEatCount())});
                 index++;
             }
-            model.insertRow(model.getRowCount(),new Object[]{"Total"," "," "," "," ",String.valueOf(eatTotal)});
+            model.insertRow(model.getRowCount(),new Object[]{"Total",""," "," "," "," ",String.valueOf(eatTotal)});
+            model.insertRow(model.getRowCount(),new Object[]{""," "," "," "," ",""});
+            for (Immobile immobile : immobileSet) {
+                model.insertRow(model.getRowCount(), new Object[]{index,immobile.getName(), immobile.getColorr(),
+                        String.valueOf((immobile.getSize())), "(Location-X) " + immobile.getX(), "(Location-Y) " + immobile.getY(),""});
+                index++;
+            }
             table.setVisible(true);
             sp.setVisible(true);
         }

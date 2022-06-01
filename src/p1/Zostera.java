@@ -24,4 +24,9 @@ public class Zostera extends Immobile{
         g.drawLine(x+8, y, x+40, y-size*4/7);
         g2.setStroke(new BasicStroke(1));
     }
+
+    @Override
+    public Immobile clone() {
+        return new Zostera(size,x,y);
+    }
 }
