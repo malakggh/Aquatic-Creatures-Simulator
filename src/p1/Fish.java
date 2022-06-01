@@ -7,6 +7,7 @@
 package p1;
 
 import java.awt.*;
+import java.util.Random;
 import java.util.concurrent.BrokenBarrierException;
 import java.util.concurrent.CyclicBarrier;
 
@@ -111,6 +112,22 @@ public class Fish extends Swimmable{
     public int get_Ydir() {
         return y_dir;
     }
+
+    @Override
+    public Swimmable clone() {
+        return new Fish(size,x_front,y_front,horSpeed,verSpeed,col);
+    }
+
+    @Override
+    public void upgrade() {
+        Random rand = new Random();
+        size =  rand.nextInt(20,321);
+        verSpeed = rand.nextInt(1,11);
+        horSpeed = rand.nextInt(1,11);
+        col= rand.nextInt(1,10);
+        setColor();
+    }
+
 
     @Override
     public void run() {

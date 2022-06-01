@@ -45,6 +45,7 @@ public class AquaPanel extends JPanel implements PropertyChangeListener {
 
         model = new DefaultTableModel();
         table = new JTable(model);
+        model.addColumn("Index");
         model.addColumn("Animal");
         model.addColumn("Color");
         model.addColumn("Size");
@@ -88,13 +89,14 @@ public class AquaPanel extends JPanel implements PropertyChangeListener {
         }
     }
     public void infoUpdate() {
-
+        int index = 0;
         if (infoCounter % 2 == 1) {
             infoCounter++;
             for (Swimmable swimmable : swimmableSet) {
-                model.insertRow(model.getRowCount(), new Object[]{swimmable.getAnimalName(), swimmable.getColor(),
+                model.insertRow(model.getRowCount(), new Object[]{index,swimmable.getAnimalName(), swimmable.getColor(),
                         String.valueOf((swimmable.getSize())), String.valueOf(swimmable.horSpeed), String.valueOf(swimmable.verSpeed),
                         String.valueOf(swimmable.getEatCount())});
+                index++;
             }
             model.insertRow(model.getRowCount(),new Object[]{"Total"," "," "," "," ",String.valueOf(eatTotal)});
             table.setVisible(true);

@@ -14,7 +14,7 @@ import java.util.concurrent.CyclicBarrier;
 /**
  * Swimmable class
  */
-public abstract class Swimmable extends Thread implements Comparable,SeaCreature{
+public abstract class Swimmable extends Thread implements Comparable,SeaCreature,Cloneable{
     protected int horSpeed;
     protected int verSpeed;
 
@@ -148,4 +148,9 @@ public abstract class Swimmable extends Thread implements Comparable,SeaCreature
     public void removePropertyChangeListener(PropertyChangeListener pcl){
         support.removePropertyChangeListener(pcl);
     }
+
+    @Override
+    abstract public Swimmable clone();
+
+    abstract public void upgrade();
 }

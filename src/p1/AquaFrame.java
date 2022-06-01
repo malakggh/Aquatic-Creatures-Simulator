@@ -21,8 +21,8 @@ public class AquaFrame extends JFrame implements ActionListener {
     private HashSet<Swimmable> swimmableSet;
 
     private HashSet<Immobile> immobileSet;
-    private JButton[] buttons = new JButton[8];
-    private String[] buttonNames = {"Add Animal","Sleep","Wake Up","Reset","Food","Info","Exit","Add Plant"};
+    private JButton[] buttons;
+    private String[] buttonNames = {"Add Animal","Sleep","Wake Up","Reset","Food","Info","Exit","Add Plant","Duplicate Animal"};
     private JPanel buttonsPanel;
 
     private AddAnimalDialog addAnimalDialog;
@@ -38,6 +38,7 @@ public class AquaFrame extends JFrame implements ActionListener {
 
     public AquaFrame(String title){
         super(title);
+        buttons = new JButton[buttonNames.length];
         sleep=false;
         food=Worm.getInstance();
         jMenuFile = new JMenu("File");
@@ -151,6 +152,43 @@ public class AquaFrame extends JFrame implements ActionListener {
         else if(e.getSource()==buttons[7]){
             if(immobileSet.size()<5) {
                 addPlantDialog = new AddPlantDialog(immobileSet);
+            }
+        }else if(e.getSource()== buttons[8]){
+            if(swimmableSet.size()<5 && swimmableSet.size() > 0) {
+                String input="";
+                mainPanel.infoUpdate();
+                do {
+                    do {
+                        input = (String)JOptionPane.showInputDialog(this,
+                                "Please enter animal index from table",
+                                "Duplicate Animal",
+                                JOptionPane.PLAIN_MESSAGE,
+                                null,
+                                null,
+                                "0");
+                        if (input == null){
+                            break;
+                        }
+                    } while (!input.matches("^[0-9]*$") || input.length() != 1) ;
+                    if (input == null){
+                        break;
+                    }
+                }while (!(Integer.parseInt(input) >= 0 && Integer.parseInt(input) < swimmableSet.size()));
+                mainPanel.infoUpdate();
+                assert input != null;
+                Swimmable targetFish=null;
+                int counter=0;
+                for (Swimmable swimmable : swimmableSet){
+                    if (counter==Integer.parseInt(input)){
+                        targetFish=swimmable;
+                    }
+                }
+                assert targetFish != null;
+                Swimmable clonedFish= targetFish.clone();
+                clonedFish.upgrade();
+                clonedFish.addPropertyChangeListener(mainPanel);
+                swimmableSet.add(clonedFish);
+                clonedFish.start();
             }
         }
 
