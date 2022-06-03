@@ -204,17 +204,14 @@ public class AquaFrame extends JFrame implements ActionListener {
                 }
             }
         }else if (e.getSource() == jMenuItemRestore){
-            /*jjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjj*/
             if (memento!=null){
                 SeaCreature seaCreature = memento.getState();
                 if (seaCreature instanceof Swimmable){
                     Swimmable swimmable = (Swimmable) memento.getCreatureReference();
-                    //swimmable = (Swimmable) memento.getState();
-                    swimmable=null;
+                    swimmable.update((Swimmable) seaCreature);
                 }else if (seaCreature instanceof Immobile){
                     Immobile immobile = (Immobile) memento.getCreatureReference();
-                    immobile = (Immobile) memento.getState();
-                    immobile=null;
+                    immobile.update((Immobile) seaCreature);
                 }
             }
         }

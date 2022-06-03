@@ -9,7 +9,7 @@ public class Memento {
         }else if (state instanceof Immobile){
             this.state=((Immobile) state).clone();
         }
-        this.state=state;
+        this.creatureReference=state;
     }
     public SeaCreature getState(){return state; }
 

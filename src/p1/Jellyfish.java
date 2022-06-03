@@ -100,7 +100,15 @@ public class Jellyfish extends Swimmable{
 
     @Override
     public Swimmable clone() {
-        return new Jellyfish(size,x_front,y_front,horSpeed,verSpeed,col);
+
+        Swimmable swimmable = new Jellyfish(size,x_front,y_front,horSpeed,verSpeed,col);
+        swimmable.setEatCounter(eatCount);
+        return swimmable;
+    }
+
+    @Override
+    public void setEatCounter(int eatCount) {
+        this.eatCount = eatCount;
     }
 
     @Override
@@ -111,6 +119,23 @@ public class Jellyfish extends Swimmable{
         horSpeed = rand.nextInt(1,11);
         col= rand.nextInt(1,10);
         setColor();
+    }
+
+    @Override
+    public void update(Swimmable swimmable) {
+        this.size =  swimmable.getSize();
+        this.x_front = swimmable.getX_front();
+        this.y_front = swimmable.getY_front();
+        this.horSpeed = swimmable.getHorSpeed();
+        this.verSpeed = swimmable.getVerSpeed();
+        this.col= swimmable.getCol();
+        this.eatCount = swimmable.getEatCount();
+        setColor();
+    }
+
+    @Override
+    public int getCol() {
+        return col;
     }
 
     @Override

@@ -92,11 +92,13 @@ public class AquaPanel extends JPanel implements PropertyChangeListener {
         int index = 0;
         if (infoCounter % 2 == 1) {
             infoCounter++;
+            eatTotal = 0;
             for (Swimmable swimmable : swimmableSet) {
                 model.insertRow(model.getRowCount(), new Object[]{index,swimmable.getAnimalName(), swimmable.getColor(),
                         String.valueOf((swimmable.getSize())), String.valueOf(swimmable.horSpeed), String.valueOf(swimmable.verSpeed),
                         String.valueOf(swimmable.getEatCount())});
                 index++;
+                eatTotal += swimmable.getEatCount();
             }
             model.insertRow(model.getRowCount(),new Object[]{"Total",""," "," "," "," ",String.valueOf(eatTotal)});
             model.insertRow(model.getRowCount(),new Object[]{""," "," "," "," ",""});
@@ -128,7 +130,6 @@ public class AquaPanel extends JPanel implements PropertyChangeListener {
     public void propertyChange(PropertyChangeEvent evt) {
         synchronized (this) {
             ((Swimmable) evt.getSource()).eatInc();
-            eatTotal++;
             food.setState(false);
         }
 

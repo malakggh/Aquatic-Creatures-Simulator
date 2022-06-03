@@ -153,4 +153,10 @@ public abstract class Swimmable extends Thread implements Comparable,SeaCreature
     abstract public Swimmable clone();
 
     abstract public void upgrade();
+
+    abstract public void update(Swimmable swimmable);
+
+    abstract public int getCol();
+
+    abstract public void setEatCounter(int counter);
 }

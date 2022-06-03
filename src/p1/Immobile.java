@@ -37,5 +37,11 @@ public abstract class Immobile implements SeaCreature,Cloneable {
     }
     @Override
     abstract public Immobile clone();
+
+    public void update(Immobile immobile){
+        this.size=immobile.getSize();
+        this.x=immobile.getX();
+        this.y=immobile.getY();
+    }
 }
 
