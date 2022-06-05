@@ -25,6 +25,10 @@ public abstract class Swimmable extends Thread implements Comparable,SeaCreature
     protected int eatFreq;
 
     protected int freqCounter;
+
+    protected HungerState hungerState;
+
+    protected int hungerCounter;
     /**
      * default constructor
      */
@@ -35,6 +39,8 @@ public abstract class Swimmable extends Thread implements Comparable,SeaCreature
         this.support=new PropertyChangeSupport(this);
         this.eatFreq=0;
         freqCounter=0;
+        hungerState=new Hungry();
+        hungerCounter++;
     }
 
     /**
@@ -50,6 +56,8 @@ public abstract class Swimmable extends Thread implements Comparable,SeaCreature
         this.support=new PropertyChangeSupport(this);
         this.eatFreq=freq;
         freqCounter=0;
+        hungerState=new Hungry();
+        hungerCounter++;
     }
 
     /**
@@ -168,4 +176,14 @@ public abstract class Swimmable extends Thread implements Comparable,SeaCreature
 
     abstract public void setEatCounter(int counter);
     abstract public void PaintFish(Color col);
+
+    abstract public void changeDirToFood();
+
+    public void setHungerState(HungerState hungerState){
+        this.hungerState=hungerState;
+    }
+    public void setHungerCounter(int counter){
+        hungerCounter=counter;
+    }
+    public int getHungerCounter(){return hungerCounter;}
 }

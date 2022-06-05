@@ -188,8 +188,7 @@ public class Fish extends Swimmable{
                     } catch (InterruptedException | BrokenBarrierException e) {
                         e.printStackTrace();
                     }
-                    changeDirToFood();
-
+                    hungerState.doAction(this);
                 }else {
                     x_front = x_front + horSpeed * x_dir;
                     y_front = y_front + verSpeed * y_dir;
