@@ -14,7 +14,7 @@ import java.util.concurrent.CyclicBarrier;
 /**
  * Swimmable class
  */
-public abstract class Swimmable extends Thread implements Comparable,SeaCreature,Cloneable{
+public abstract class Swimmable extends Thread implements Comparable,SeaCreature,Cloneable,MarineAnimal{
     protected int horSpeed;
     protected int verSpeed;
 
@@ -23,6 +23,8 @@ public abstract class Swimmable extends Thread implements Comparable,SeaCreature
     protected PropertyChangeSupport support;
 
     protected int eatFreq;
+
+    protected int freqCounter;
     /**
      * default constructor
      */
@@ -32,6 +34,7 @@ public abstract class Swimmable extends Thread implements Comparable,SeaCreature
         this.active=true;
         this.support=new PropertyChangeSupport(this);
         this.eatFreq=0;
+        freqCounter=0;
     }
 
     /**
@@ -46,6 +49,7 @@ public abstract class Swimmable extends Thread implements Comparable,SeaCreature
         this.active=true;
         this.support=new PropertyChangeSupport(this);
         this.eatFreq=freq;
+        freqCounter=0;
     }
 
     /**
@@ -163,4 +167,5 @@ public abstract class Swimmable extends Thread implements Comparable,SeaCreature
     abstract public int getCol();
 
     abstract public void setEatCounter(int counter);
+    abstract public void PaintFish(Color col);
 }

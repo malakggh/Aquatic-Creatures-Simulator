@@ -165,8 +165,10 @@ public class Fish extends Swimmable{
                         throw new RuntimeException(e);
                     }
                 }
-
-
+                if(freqCounter+1==eatFreq){
+                    support.firePropertyChange(currentThread().getName()+" must eat",freqCounter,freqCounter+1);
+                }
+                freqCounter=(freqCounter+1)%eatFreq;
                 if (x_front >= mainPanel.getSize().width) {
                     flip_Xdir();
                     x_front = (int) (x_front - size * 1.253452525);
@@ -252,28 +254,28 @@ public class Fish extends Swimmable{
      * get color of fish according to number between 1-9
      * @return String
      */
-    @Override
-    public String getColor() {
-        if (col == 1){
-            return "Black";
-        }else if(col == 2){
-            return "Red";
-        }else if(col == 3){
-            return "Blue";
-        }else if(col == 4){
-            return "Green";
-        }else if(col == 5){
-            return "Cyan";
-        }else if(col == 6){
-            return "Orange";
-        }else if(col == 7){
-            return "Yellow";
-        }else if(col == 8){
-            return "Magenta";
-        }else{
-            return "Pink";
-        }
-    }
+
+//    public String getColor() {
+//        if (col == 1){
+//            return "Black";
+//        }else if(col == 2){
+//            return "Red";
+//        }else if(col == 3){
+//            return "Blue";
+//        }else if(col == 4){
+//            return "Green";
+//        }else if(col == 5){
+//            return "Cyan";
+//        }else if(col == 6){
+//            return "Orange";
+//        }else if(col == 7){
+//            return "Yellow";
+//        }else if(col == 8){
+//            return "Magenta";
+//        }else{
+//            return "Pink";
+//        }
+//    }
 
     public void setColor(){
         if (col == 1){
@@ -296,6 +298,7 @@ public class Fish extends Swimmable{
             color = new Color(Color.pink.getRGB());
         }
     }
+
     /**
      * increase eatCount
      */
@@ -414,5 +417,12 @@ public class Fish extends Swimmable{
     @Override
     public void drawCreature(Graphics g) {
         drawAnimal(g);
+    }
+    public void PaintFish(Color col){
+        color=col;
+    }
+
+    public String getColor() {
+        return "("+color.getRed()+","+color.getGreen()+","+color.getBlue()+")";
     }
 }

@@ -81,7 +81,7 @@ public class AddAnimalDialog extends JDialog implements ActionListener {
                         JOptionPane.PLAIN_MESSAGE,
                         null,
                         null,
-                        "0");
+                        "3000");
                 if (input == null){
                     break;
                 }

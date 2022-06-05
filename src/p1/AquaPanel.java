@@ -129,8 +129,22 @@ public class AquaPanel extends JPanel implements PropertyChangeListener {
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
         synchronized (this) {
-            ((Swimmable) evt.getSource()).eatInc();
-            food.setState(false);
+            if(evt.getPropertyName().contains("ate food")) {
+                ((Swimmable) evt.getSource()).eatInc();
+                food.setState(false);
+            }
+            if(evt.getPropertyName().contains("must eat")){
+                int n = JOptionPane.showConfirmDialog(
+                        null,
+                        evt.getPropertyName() ,
+                        "Add food ?",
+                        JOptionPane.YES_NO_OPTION);
+
+                if(n == JOptionPane.YES_OPTION)
+                {
+                    food.setState(true);
+                }
+            }
         }
 
     }

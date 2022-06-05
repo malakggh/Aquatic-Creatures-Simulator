@@ -150,6 +150,10 @@ public class Jellyfish extends Swimmable{
                     }
                 }
 
+                if(freqCounter+1==eatFreq){
+                    support.firePropertyChange(currentThread().getName()+" must eat",freqCounter,freqCounter+1);
+                }
+                freqCounter=(freqCounter+1)%eatFreq;
 
                 if (x_front >= mainPanel.getSize().width) {
                     flip_Xdir();
@@ -212,28 +216,10 @@ public class Jellyfish extends Swimmable{
         x_front += alpha * disX ;
         y_front += alpha * disY ;
     }
-    @Override
     public String getColor() {
-        if (col == 1){
-            return "Black";
-        }else if(col == 2){
-            return "Red";
-        }else if(col == 3){
-            return "Blue";
-        }else if(col == 4){
-            return "Green";
-        }else if(col == 5){
-            return "Cyan";
-        }else if(col == 6){
-            return "Orange";
-        }else if(col == 7){
-            return "Yellow";
-        }else if(col == 8){
-            return "Magenta";
-        }else{
-            return "Pink";
-        }
+        return "("+color.getRed()+","+color.getGreen()+","+color.getBlue()+")";
     }
+
     /**
      * change size of Jellyfish
      * @param size
@@ -410,5 +396,7 @@ public class Jellyfish extends Swimmable{
     public void drawCreature(Graphics g) {
         drawAnimal(g);
     }
-
+    public void PaintFish(Color col){
+        color=col;
+    }
 }

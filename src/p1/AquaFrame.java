@@ -22,17 +22,20 @@ public class AquaFrame extends JFrame implements ActionListener {
     private HashSet<Swimmable> swimmableSet;
     private HashSet<Immobile> immobileSet;
     private JButton[] buttons;
-    private String[] buttonNames = {"Add Animal","Sleep","Wake Up","Reset","Food","Info","Exit","Add Plant","Duplicate Animal"};
-    private JPanel buttonsPanel;
+    private String[] buttonNames = {"Add Animal","Sleep","Wake Up","Reset","Food","Info","Exit","Add Plant","Duplicate Animal","Decorator"};
+    public static JPanel buttonsPanel;
     private AddAnimalDialog addAnimalDialog;
     private AddPlantDialog addPlantDialog;
     public static AquaPanel mainPanel;
+
+    private JPanelDecorator jPanelDecorator;
     private JMenu jMenuFile,jMenuBackground,jMenuHelp,jMenuMemento;
     private JMenuItem jMenuItemExit,jMenuItemImage,jMenuItemBlue,jMenuItemNone,jMenuItemHelp,jMenuItemSave,jMenuItemRestore;
     public static boolean sleep;
     public static Worm food;
     public static CyclicBarrier barrier;
     private Memento memento;
+
     public AquaFrame(String title){
         super(title);
         buttons = new JButton[buttonNames.length];
@@ -215,8 +218,18 @@ public class AquaFrame extends JFrame implements ActionListener {
                 }
             }
         }
+        else if(e.getSource()== buttons[9]){
+            if(swimmableSet!=null) {
+                jPanelDecorator = new JPanelDecorator(swimmableSet);
+                add(jPanelDecorator);
+                jPanelDecorator.setVisible(true);
+                mainPanel.setVisible(false);
+                buttonsPanel.setVisible(false);
+            }
+        }
 
     }
+
 
 
     private int pickAnimalOrPlant(String message,String title,int len){
