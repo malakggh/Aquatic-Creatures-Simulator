@@ -190,7 +190,10 @@ public class Jellyfish extends Swimmable{
             }
         }
     }
-
+    public void move(){
+        x_front = x_front + horSpeed * x_dir;
+        y_front = y_front + verSpeed * y_dir;
+    }
     public void changeDirToFood(){
         //System.out.println("I changed direction " + currentThread().getName());
         int centerX = mainPanel.getSize().width/2;

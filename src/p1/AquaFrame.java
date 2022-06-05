@@ -178,9 +178,9 @@ public class AquaFrame extends JFrame implements ActionListener {
                     counter++;
                 }
                 assert targetFish != null;
-                Swimmable clonedFish= targetFish.clone();
-                clonedFish.upgrade();
+                Swimmable clonedFish= targetFish.clone();;
                 clonedFish.addPropertyChangeListener(mainPanel);
+                clonedFish.upgrade();
                 swimmableSet.add(clonedFish);
                 clonedFish.start();
             }

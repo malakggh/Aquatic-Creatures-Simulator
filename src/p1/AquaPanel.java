@@ -130,6 +130,7 @@ public class AquaPanel extends JPanel implements PropertyChangeListener {
     public void propertyChange(PropertyChangeEvent evt) {
         synchronized (this) {
             if(evt.getPropertyName().contains("ate food")) {
+                System.out.println("ate food xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx");
                 ((Swimmable) evt.getSource()).eatInc();
                 food.setState(false);
                 ((Swimmable) evt.getSource()).setHungerState(new Satiated());

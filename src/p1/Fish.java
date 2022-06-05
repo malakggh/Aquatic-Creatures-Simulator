@@ -190,8 +190,7 @@ public class Fish extends Swimmable{
                     }
                     hungerState.doAction(this);
                 }else {
-                    x_front = x_front + horSpeed * x_dir;
-                    y_front = y_front + verSpeed * y_dir;
+                   move();
                 }
 
                 mainPanel.repaint();
@@ -202,6 +201,11 @@ public class Fish extends Swimmable{
                 }
             }
         }
+    }
+
+    public void move(){
+        x_front = x_front + horSpeed * x_dir;
+        y_front = y_front + verSpeed * y_dir;
     }
 
     public void changeDirToFood(){

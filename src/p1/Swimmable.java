@@ -11,6 +11,8 @@ import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 import java.util.concurrent.CyclicBarrier;
 
+import static p1.AquaFrame.food;
+
 /**
  * Swimmable class
  */
@@ -29,6 +31,8 @@ public abstract class Swimmable extends Thread implements Comparable,SeaCreature
     protected HungerState hungerState;
 
     protected int hungerCounter;
+
+    protected int foodCounter;
     /**
      * default constructor
      */
@@ -40,7 +44,8 @@ public abstract class Swimmable extends Thread implements Comparable,SeaCreature
         this.eatFreq=0;
         freqCounter=0;
         hungerState=new Hungry();
-        hungerCounter++;
+        hungerCounter=0;
+        foodCounter=food.getFoodCounter();
     }
 
     /**
@@ -57,7 +62,8 @@ public abstract class Swimmable extends Thread implements Comparable,SeaCreature
         this.eatFreq=freq;
         freqCounter=0;
         hungerState=new Hungry();
-        hungerCounter++;
+        hungerCounter=0;
+        foodCounter=food.getFoodCounter();
     }
 
     /**
@@ -186,4 +192,6 @@ public abstract class Swimmable extends Thread implements Comparable,SeaCreature
         hungerCounter=counter;
     }
     public int getHungerCounter(){return hungerCounter;}
+
+    abstract public void move();
 }
