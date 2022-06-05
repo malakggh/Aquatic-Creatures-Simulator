@@ -72,9 +72,22 @@ public class AddAnimalDialog extends JDialog implements ActionListener {
      */
     @Override
     public void actionPerformed(ActionEvent e) {
-
+        String input="";
         if (e.getSource() == addFish) {
-            AnimalFactory animalFactory=new AnimalFactory(Integer.parseInt(sizeBox.getText()), Integer.parseInt(horBox.getText()),Integer.parseInt(verBox.getText()),comboBoxFishColor.getSelectedIndex() + 1);
+            do {
+                input = (String)JOptionPane.showInputDialog(this,
+                        "Please enter creature eat frequency:",
+                        "EatFreq",
+                        JOptionPane.PLAIN_MESSAGE,
+                        null,
+                        null,
+                        "0");
+                if (input == null){
+                    break;
+                }
+            } while (!input.matches("^[0-9]*$") );
+
+            AnimalFactory animalFactory=new AnimalFactory(Integer.parseInt(sizeBox.getText()), Integer.parseInt(horBox.getText()),Integer.parseInt(verBox.getText()),comboBoxFishColor.getSelectedIndex() + 1,Integer.parseInt(input));
             Swimmable Creature= (Swimmable) animalFactory.produceSeaCreature(comboBoxFishType.getSelectedItem().toString());
             Creature.addPropertyChangeListener(mainPanel);
             swimmableSetRef.add(Creature);

@@ -21,6 +21,8 @@ public abstract class Swimmable extends Thread implements Comparable,SeaCreature
     protected boolean active;
 
     protected PropertyChangeSupport support;
+
+    protected int eatFreq;
     /**
      * default constructor
      */
@@ -29,6 +31,7 @@ public abstract class Swimmable extends Thread implements Comparable,SeaCreature
         this.verSpeed=0;
         this.active=true;
         this.support=new PropertyChangeSupport(this);
+        this.eatFreq=0;
     }
 
     /**
@@ -37,11 +40,12 @@ public abstract class Swimmable extends Thread implements Comparable,SeaCreature
      * @param horSpeed
      * @param verSpeed
      */
-    public Swimmable(int horSpeed,int verSpeed){
+    public Swimmable(int horSpeed,int verSpeed,int freq){
         this.horSpeed=horSpeed;
         this.verSpeed=verSpeed;
         this.active=true;
         this.support=new PropertyChangeSupport(this);
+        this.eatFreq=freq;
     }
 
     /**

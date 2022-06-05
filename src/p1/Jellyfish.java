@@ -36,8 +36,8 @@ public class Jellyfish extends Swimmable{
      * @param verSpeed
      * @param col
      */
-    public Jellyfish(int size,int x_front,int y_front,int horSpeed,int verSpeed,int col){
-        super(horSpeed,verSpeed);
+    public Jellyfish(int size,int x_front,int y_front,int horSpeed,int verSpeed,int col,int freq){
+        super(horSpeed,verSpeed,freq);
         eatCount=0;
         y_dir=1;
         x_dir=1;
@@ -52,7 +52,7 @@ public class Jellyfish extends Swimmable{
      * default constructor
      */
     public Jellyfish(){
-        this(0,0,0,0,0,0);
+        this(0,0,0,0,0,0,0);
     }
 
     public void setX_front(int x_front) {
@@ -101,7 +101,7 @@ public class Jellyfish extends Swimmable{
     @Override
     public Swimmable clone() {
 
-        Swimmable swimmable = new Jellyfish(size,x_front,y_front,horSpeed,verSpeed,col);
+        Swimmable swimmable = new Jellyfish(size,x_front,y_front,horSpeed,verSpeed,col,eatFreq);
         swimmable.setEatCounter(eatCount);
         return swimmable;
     }

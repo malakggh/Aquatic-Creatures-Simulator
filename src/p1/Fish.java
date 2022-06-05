@@ -36,8 +36,8 @@ public class Fish extends Swimmable{
      * @param verSpeed
      * @param col
      */
-    public Fish(int size,int x_front,int y_front,int horSpeed,int verSpeed,int col){
-        super(horSpeed,verSpeed);
+    public Fish(int size,int x_front,int y_front,int horSpeed,int verSpeed,int col,int freq){
+        super(horSpeed,verSpeed,freq);
         eatCount=0;
         y_dir=1;
         x_dir=1;
@@ -68,7 +68,7 @@ public class Fish extends Swimmable{
      * default constructor
      */
     public Fish(){
-        this(0,0,0,0,0,0);
+        this(0,0,0,0,0,0,0);
     }
 
     /**
@@ -116,7 +116,7 @@ public class Fish extends Swimmable{
     @Override
     public Swimmable clone() {
 
-        Swimmable swimmable = new Fish(size,x_front,y_front,horSpeed,verSpeed,col);
+        Swimmable swimmable = new Fish(size,x_front,y_front,horSpeed,verSpeed,col,eatFreq);
         swimmable.setEatCounter(eatCount);
         return swimmable;
     }
