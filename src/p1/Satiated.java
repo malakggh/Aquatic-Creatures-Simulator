@@ -5,7 +5,6 @@ import static p1.AquaFrame.food;
 public class Satiated implements HungerState{
     @Override
     public void doAction(Swimmable swimmable) {
-        System.out.println("Satiated");
         swimmable.move();
         if (swimmable.foodCounter != food.getFoodCounter()){
             swimmable.foodCounter++;
