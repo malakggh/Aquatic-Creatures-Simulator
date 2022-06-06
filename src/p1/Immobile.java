@@ -1,19 +1,26 @@
+/**
+ * Student 1 Name: Malak Ghrayeb
+ * Id 1: ***REMOVED***
+ * Student 2 Name: Saher Samara
+ * Id 2: ***REMOVED***
+ */
 package p1;
 
 import java.awt.*;
 
-public abstract class Immobile implements SeaCreature,Cloneable {
+public abstract class Immobile implements SeaCreature, Cloneable {
     protected String name;
     protected int size;
     protected int x;
     protected int y;
     protected Color colorr;
-    public Immobile(int size,String name,int x,int y){
-        this.name=name;
-        this.size=size;
-        this.x=x;
-        this.y=y;
-        this.colorr=Color.green;
+
+    public Immobile(int size, String name, int x, int y) {
+        this.name = name;
+        this.size = size;
+        this.x = x;
+        this.y = y;
+        this.colorr = Color.green;
     }
 
     public String getName() {
@@ -35,13 +42,13 @@ public abstract class Immobile implements SeaCreature,Cloneable {
     public String getColorr() {
         return "Green";
     }
+
     @Override
     abstract public Immobile clone();
 
-    public void update(Immobile immobile){
-        this.size=immobile.getSize();
-        this.x=immobile.getX();
-        this.y=immobile.getY();
+    public void update(Immobile immobile) {
+        this.size = immobile.getSize();
+        this.x = immobile.getX();
+        this.y = immobile.getY();
     }
 }
-
